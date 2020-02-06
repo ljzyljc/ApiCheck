@@ -1,0 +1,59 @@
+{
+  "point_summary": {
+    "available_rewards": null,
+    "total_points": null,
+    "pending_points": null,
+    "avatar_image_url": null,
+    "register_info": null
+  },
+  "background_image_url": null,
+  "earning_reward_cards": [
+    {
+      "id": null,
+      "name": null,
+      "subtitle": null,
+      "points": null,
+      "icon_url": null,
+      "description": null,
+      "image_url": null,
+      "action_type": null,
+      "action_text": null,
+      "earned": null
+    }
+  ],
+  "redemption_reward_cards": [
+    {
+      "id": null,
+      "rule_id": null,
+      "name": null,
+      "subtitle": null,
+      "points": null,
+      "icon_url": null,
+      "description": null,
+      "image_url": null,
+      "action_text": null,
+      "action_type": null,
+      "available": null
+    }
+  ],
+  "point_histories": [
+    {
+      "id": null,
+      "change_points": null,
+      "left_points": null,
+      "redeem_coupon_code": null,
+      "type": null,
+      "rule_name": null,
+      "change_points_description": null,
+      "description": null,
+      "created_time": null
+    }
+  ],
+  "faqs": [
+    {
+      "question": null,
+      "answer": null
+    }
+  ],
+  "total_of_point_histories": null
+}
