@@ -1,1 +1,2182 @@
-{"id": "503", "name": "班级优化", "info": {"uid":"2017","stuName":["张三","李四"]}}
+{
+    "services": [
+        {
+            "name": "DeviceWebService",
+            "operations": [
+                {
+                    "name": "register",
+                    "method": "POST",
+                    "path": "/device/:id/channel/:number",
+                    "pathParams": [{
+                                       "name": "id",
+                                       "type": "string"
+                                                   },
+                                       {
+                                          "name": "number",
+                                          "type": "string"
+                                              }],
+                    "responseType": "RegisterDeviceResponse",
+                    "requestType": "RegisterDeviceRequest"
+                },
+                {
+                    "name": "update",
+                    "method": "PUT",
+                    "path": "/device/:id/messaging-token",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "UpdateMessagingTokenRequest"
+                }
+            ]
+        },
+        {
+            "name": "SessionWebService",
+            "operations": [
+                {
+                    "name": "create",
+                    "method": "POST",
+                    "path": "/session",
+                    "pathParams": [],
+                    "responseType": "CreateSessionResponse",
+                    "requestType": "CreateSessionRequest"
+                },
+                {
+                    "name": "createV2",
+                    "method": "POST",
+                    "path": "/v2/session",
+                    "pathParams": [],
+                    "responseType": "CreateSessionResponseV2",
+                    "requestType": "CreateSessionRequestV2"
+                }
+            ]
+        },
+        {
+            "name": "VersionWebService",
+            "operations": [
+                {
+                    "name": "check",
+                    "method": "GET",
+                    "path": "/version",
+                    "pathParams": [],
+                    "responseType": "CheckVersionResponse",
+                    "requestType": "CheckVersionRequest"
+                }
+            ]
+        },
+        {
+            "name": "WonderUserWebService",
+            "operations": [
+                {
+                    "name": "changePassword",
+                    "method": "PUT",
+                    "path": "/user/change-password",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UserChangePasswordRequest"
+                },
+                {
+                    "name": "check",
+                    "method": "PUT",
+                    "path": "/user/check",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UserCheckRequest"
+                },
+                {
+                    "name": "login",
+                    "method": "PUT",
+                    "path": "/user/login",
+                    "pathParams": [],
+                    "responseType": "UserLoginResponse",
+                    "requestType": "UserLoginRequest"
+                },
+                {
+                    "name": "logout",
+                    "method": "PUT",
+                    "path": "/user/logout",
+                    "pathParams": [],
+                    "responseType": "UserLogoutResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "sendCaptchaV2",
+                    "method": "POST",
+                    "path": "/user/phone-captcha",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UserSendCaptchaRequest"
+                },
+                {
+                    "name": "register",
+                    "method": "POST",
+                    "path": "/user/register",
+                    "pathParams": [],
+                    "responseType": "UserRegisterResponse",
+                    "requestType": "UserRegisterRequest"
+                },
+                {
+                    "name": "resetPassword",
+                    "method": "PUT",
+                    "path": "/user/reset-password",
+                    "pathParams": [],
+                    "responseType": "UserResetPasswordResponse",
+                    "requestType": "UserResetPasswordRequest"
+                },
+                {
+                    "name": "sendVerificationCode",
+                    "method": "POST",
+                    "path": "/user/verification-code",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UserSendVerificationCodeRequest"
+                },
+                {
+                    "name": "registerV2",
+                    "method": "POST",
+                    "path": "/v2/user/register",
+                    "pathParams": [],
+                    "responseType": "UserRegisterResponse",
+                    "requestType": "UserRegisterRequest"
+                }
+            ]
+        },
+        {
+            "name": "AccountWebService",
+            "operations": [
+                {
+                    "name": "getPreferences",
+                    "method": "GET",
+                    "path": "/account/preferences",
+                    "pathParams": [],
+                    "responseType": "GetPreferencesResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updatePreferences",
+                    "method": "PUT",
+                    "path": "/account/preferences",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UpdatePreferencesRequest"
+                },
+                {
+                    "name": "getProfile",
+                    "method": "GET",
+                    "path": "/account/profile",
+                    "pathParams": [],
+                    "responseType": "ProfileView",
+                    "requestType": null
+                },
+                {
+                    "name": "updateProfile",
+                    "method": "PUT",
+                    "path": "/account/profile",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UpdateProfileRequest"
+                },
+                {
+                    "name": "settings",
+                    "method": "GET",
+                    "path": "/account/settings",
+                    "pathParams": [],
+                    "responseType": "GetSettingsResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updateSettings",
+                    "method": "PUT",
+                    "path": "/account/settings",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UpdateSettingsRequest"
+                }
+            ]
+        },
+        {
+            "name": "WonderAdWebService",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/app-start-ad",
+                    "pathParams": [],
+                    "responseType": "GetAppStartAdResponse",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "WonderRestaurantWebService",
+            "operations": [
+                {
+                    "name": "list",
+                    "method": "GET",
+                    "path": "/restaurant",
+                    "pathParams": [],
+                    "responseType": "MobileListRestaurantResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/restaurant/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "MobileGetRestaurantResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getChefPicks",
+                    "method": "GET",
+                    "path": "/restaurant/:id/chef-picks",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetRestaurantChefPicksResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getDescription",
+                    "method": "GET",
+                    "path": "/restaurant/:id/description",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetRestaurantDescriptionResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getMenu",
+                    "method": "GET",
+                    "path": "/restaurant/:id/menu",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetRestaurantMenuResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getOrderAgain",
+                    "method": "GET",
+                    "path": "/restaurant/:id/order-again",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetRestaurantOrderAgainResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getRecommendedProduct",
+                    "method": "GET",
+                    "path": "/restaurant/:id/recommended-product",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetRestaurantRecommendedProductResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getGoTos",
+                    "method": "GET",
+                    "path": "/restaurant/go-tos",
+                    "pathParams": [],
+                    "responseType": "GoTosView",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "AddressWebService",
+            "operations": [
+                {
+                    "name": "list",
+                    "method": "GET",
+                    "path": "/address",
+                    "pathParams": [],
+                    "responseType": "ListAddressResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "create",
+                    "method": "POST",
+                    "path": "/address",
+                    "pathParams": [],
+                    "responseType": "CreateAddressResponse",
+                    "requestType": "CreateAddressRequest"
+                },
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/address/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "AddressView",
+                    "requestType": null
+                },
+                {
+                    "name": "update",
+                    "method": "PUT",
+                    "path": "/address/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "UpdateAddressRequest"
+                },
+                {
+                    "name": "delete",
+                    "method": "DELETE",
+                    "path": "/address/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "LocationWebService",
+            "operations": [
+                {
+                    "name": "update",
+                    "method": "PUT",
+                    "path": "/location",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "LocationRequest"
+                },
+                {
+                    "name": "subscribe",
+                    "method": "POST",
+                    "path": "/location/subscribe",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "SubscribeLocationRequest"
+                }
+            ]
+        },
+        {
+            "name": "WonderProductWebService",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "PUT",
+                    "path": "/product/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetProductResponse",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "WonderChefPickWebService",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/chef-pick/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetProductResponse",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "GoesWellWithWebService",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/goes-well-with/:productId",
+                    "pathParams": [
+                        {
+                            "name": "productId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetGoesWellWithProductResponse",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "CreditCardWebService",
+            "operations": [
+                {
+                    "name": "list",
+                    "method": "GET",
+                    "path": "/credit-card",
+                    "pathParams": [],
+                    "responseType": "MobileListCreditCardResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "create",
+                    "method": "POST",
+                    "path": "/credit-card",
+                    "pathParams": [],
+                    "responseType": "MobileCreateCreditCardResponse",
+                    "requestType": "MobileCreateCreditCardRequest"
+                },
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/credit-card/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "MobileGetCreditCardResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "update",
+                    "method": "PUT",
+                    "path": "/credit-card/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "MobileUpdateCreditCardRequest"
+                },
+                {
+                    "name": "delete",
+                    "method": "DELETE",
+                    "path": "/credit-card/:id",
+                    "pathParams": [
+                        {
+                            "name": "id",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "PaymentWebService",
+            "operations": [
+                {
+                    "name": "updateDefaultPaymentMethod",
+                    "method": "PUT",
+                    "path": "/default-payment-method",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "UpdateDefaultPaymentMethodRequest"
+                },
+                {
+                    "name": "checkDefaultPaymentMethod",
+                    "method": "PUT",
+                    "path": "/default-payment-method/check",
+                    "pathParams": [],
+                    "responseType": "CheckDefaultPaymentMethodResponse",
+                    "requestType": "CheckDefaultPaymentMethodRequest"
+                }
+            ]
+        },
+        {
+            "name": "CartWebService",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/cart",
+                    "pathParams": [],
+                    "responseType": "CartView",
+                    "requestType": null
+                },
+                {
+                    "name": "delete",
+                    "method": "DELETE",
+                    "path": "/cart",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": null
+                },
+                {
+                    "name": "addItem",
+                    "method": "POST",
+                    "path": "/cart/item",
+                    "pathParams": [],
+                    "responseType": "CartSummaryView",
+                    "requestType": "AddCartItemRequest"
+                },
+                {
+                    "name": "getItem",
+                    "method": "GET",
+                    "path": "/cart/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetCartItemResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updateItem",
+                    "method": "PUT",
+                    "path": "/cart/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "UpdateCartItemRequest"
+                },
+                {
+                    "name": "deleteItem",
+                    "method": "DELETE",
+                    "path": "/cart/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "CartView",
+                    "requestType": null
+                },
+                {
+                    "name": "updatePromotion",
+                    "method": "PUT",
+                    "path": "/cart/promotion",
+                    "pathParams": [],
+                    "responseType": "UpdateCartPromotionResponse",
+                    "requestType": "UpdateCartPromotionRequest"
+                },
+                {
+                    "name": "summary",
+                    "method": "GET",
+                    "path": "/cart/summary",
+                    "pathParams": [],
+                    "responseType": "CartSummaryView",
+                    "requestType": null
+                },
+                {
+                    "name": "updateUtensils",
+                    "method": "PUT",
+                    "path": "/cart/utensils",
+                    "pathParams": [],
+                    "responseType": "UpdateCartUtensilsResponse",
+                    "requestType": "UpdateCartUtensilsRequest"
+                }
+            ]
+        },
+        {
+            "name": "CartWebServiceV2",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/v2/cart",
+                    "pathParams": [],
+                    "responseType": "CartView",
+                    "requestType": null
+                },
+                {
+                    "name": "getItem",
+                    "method": "GET",
+                    "path": "/v2/cart/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetCartItemResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updateItem",
+                    "method": "PUT",
+                    "path": "/v2/cart/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "UpdateCartItemRequest"
+                },
+                {
+                    "name": "deleteItem",
+                    "method": "DELETE",
+                    "path": "/v2/cart/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "CartView",
+                    "requestType": null
+                },
+                {
+                    "name": "updatePromotion",
+                    "method": "PUT",
+                    "path": "/v2/cart/promotion",
+                    "pathParams": [],
+                    "responseType": "UpdateCartPromotionResponse",
+                    "requestType": "UpdateCartPromotionRequest"
+                },
+                {
+                    "name": "updateUtensils",
+                    "method": "PUT",
+                    "path": "/v2/cart/utensils",
+                    "pathParams": [],
+                    "responseType": "UpdateCartUtensilsResponse",
+                    "requestType": "UpdateCartUtensilsRequest"
+                }
+            ]
+        },
+        {
+            "name": "WonderOrderWebService",
+            "operations": [
+                {
+                    "name": "search",
+                    "method": "GET",
+                    "path": "/order",
+                    "pathParams": [],
+                    "responseType": "MobileSearchOrderResponse",
+                    "requestType": "MobileSearchOrderRequest"
+                },
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/order/:orderId",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetOrderResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "cancel",
+                    "method": "PUT",
+                    "path": "/order/:orderId/cancel",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "CancelOrderRequest"
+                },
+                {
+                    "name": "getItem",
+                    "method": "GET",
+                    "path": "/order/:orderId/item/:itemId",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        },
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetProductResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getOrderItemHopUp",
+                    "method": "GET",
+                    "path": "/order/:orderId/item/:itemId/hop-up",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        },
+                        {
+                            "name": "itemId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetOrderItemHopUpResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getOrderReceipt",
+                    "method": "GET",
+                    "path": "/order/:orderId/receipt",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetOrderReceiptResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getReorder",
+                    "method": "GET",
+                    "path": "/order/:orderId/reorder",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetReorderResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "reorder",
+                    "method": "POST",
+                    "path": "/order/:orderId/reorder",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "ReorderResponse",
+                    "requestType": "ReorderRequest"
+                },
+                {
+                    "name": "check",
+                    "method": "PUT",
+                    "path": "/order/:orderId/reorder/check",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "CheckReorderResponse",
+                    "requestType": "CheckReorderRequest"
+                },
+                {
+                    "name": "editOrder",
+                    "method": "PUT",
+                    "path": "/order/:orderId/reorder/convert-to-cart",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": null
+                },
+                {
+                    "name": "review",
+                    "method": "POST",
+                    "path": "/order/:orderId/review",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "ReviewOrderRequest"
+                },
+                {
+                    "name": "updateReviewShowed",
+                    "method": "PUT",
+                    "path": "/order/:orderId/review-showed",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": "UpdateReviewShowedRequest"
+                },
+                {
+                    "name": "status",
+                    "method": "GET",
+                    "path": "/order/:orderId/status",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetOrderStatusResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updateOrderTip",
+                    "method": "POST",
+                    "path": "/order/:orderId/tip",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "UpdateOrderTipResponse",
+                    "requestType": "UpdateOrderTipRequest"
+                },
+                {
+                    "name": "getOrderTipPayment",
+                    "method": "GET",
+                    "path": "/order/:orderId/tip/payment",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetOrderTipPaymentResponse",
+                    "requestType": "GetOrderTipPaymentRequest"
+                },
+                {
+                    "name": "listActive",
+                    "method": "GET",
+                    "path": "/order/active",
+                    "pathParams": [],
+                    "responseType": "ListActiveOrderResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getOrderProgress",
+                    "method": "GET",
+                    "path": "/order/in-progress",
+                    "pathParams": [],
+                    "responseType": "GetOrderProgressResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "searchOther",
+                    "method": "PUT",
+                    "path": "/order/other",
+                    "pathParams": [],
+                    "responseType": "SearchOtherOrderResponse",
+                    "requestType": "SearchOtherOrderRequest"
+                },
+                {
+                    "name": "getUnReviewOrder",
+                    "method": "GET",
+                    "path": "/order/un-review",
+                    "pathParams": [],
+                    "responseType": "GetUnReviewOrderResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "getReorderV2",
+                    "method": "GET",
+                    "path": "/v2/order/:orderId/reorder",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetReorderResponseV2",
+                    "requestType": null
+                },
+                {
+                    "name": "reorderV2",
+                    "method": "POST",
+                    "path": "/v2/order/:orderId/reorder",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "ReorderResponseV2",
+                    "requestType": "ReorderRequestV2"
+                },
+                {
+                    "name": "convertToCartV2",
+                    "method": "PUT",
+                    "path": "/v2/order/:orderId/reorder/convert-to-cart",
+                    "pathParams": [
+                        {
+                            "name": "orderId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "void",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "CheckoutWebService",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/checkout",
+                    "pathParams": [],
+                    "responseType": "GetCheckoutResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updateAddress",
+                    "method": "PUT",
+                    "path": "/checkout/address",
+                    "pathParams": [],
+                    "responseType": "UpdateCheckoutAddressResponse",
+                    "requestType": "UpdateCheckoutAddressRequest"
+                },
+                {
+                    "name": "check",
+                    "method": "PUT",
+                    "path": "/checkout/check",
+                    "pathParams": [],
+                    "responseType": "CheckCheckoutResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "addCreditCardPayment",
+                    "method": "POST",
+                    "path": "/checkout/credit-card-payment",
+                    "pathParams": [],
+                    "responseType": "AddCreditCardPaymentResponse",
+                    "requestType": "AddCreditCardPaymentRequest"
+                },
+                {
+                    "name": "placeOrder",
+                    "method": "POST",
+                    "path": "/checkout/order",
+                    "pathParams": [],
+                    "responseType": "PlaceOrderResponse",
+                    "requestType": "PlaceOrderRequest"
+                },
+                {
+                    "name": "updatePayment",
+                    "method": "PUT",
+                    "path": "/checkout/payment",
+                    "pathParams": [],
+                    "responseType": "UpdateCheckoutPaymentResponse",
+                    "requestType": "UpdateCheckoutPaymentRequest"
+                },
+                {
+                    "name": "refresh",
+                    "method": "GET",
+                    "path": "/checkout/refresh",
+                    "pathParams": [],
+                    "responseType": "RefreshCheckoutResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "addShippingAddress",
+                    "method": "POST",
+                    "path": "/checkout/shipping-address",
+                    "pathParams": [],
+                    "responseType": "AddAddressResponse",
+                    "requestType": "AddAddressRequest"
+                },
+                {
+                    "name": "updateTip",
+                    "method": "PUT",
+                    "path": "/checkout/tip",
+                    "pathParams": [],
+                    "responseType": "UpdateCheckoutTipResponse",
+                    "requestType": "UpdateCheckoutTipRequest"
+                }
+            ]
+        },
+        {
+            "name": "CheckoutWebServiceV2",
+            "operations": [
+                {
+                    "name": "get",
+                    "method": "GET",
+                    "path": "/v2/checkout",
+                    "pathParams": [],
+                    "responseType": "GetCheckoutResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "updateAddress",
+                    "method": "PUT",
+                    "path": "/v2/checkout/address",
+                    "pathParams": [],
+                    "responseType": "UpdateCheckoutAddressResponse",
+                    "requestType": "UpdateCheckoutAddressRequest"
+                },
+                {
+                    "name": "check",
+                    "method": "PUT",
+                    "path": "/v2/checkout/check",
+                    "pathParams": [],
+                    "responseType": "CheckCheckoutResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "placeOrder",
+                    "method": "POST",
+                    "path": "/v2/checkout/order",
+                    "pathParams": [],
+                    "responseType": "PlaceOrderResponse",
+                    "requestType": "PlaceOrderRequest"
+                },
+                {
+                    "name": "updatePayment",
+                    "method": "PUT",
+                    "path": "/v2/checkout/payment",
+                    "pathParams": [],
+                    "responseType": "UpdateCheckoutPaymentResponse",
+                    "requestType": "UpdateCheckoutPaymentRequest"
+                },
+                {
+                    "name": "updateTip",
+                    "method": "PUT",
+                    "path": "/v2/checkout/tip",
+                    "pathParams": [],
+                    "responseType": "UpdateCheckoutTipResponse",
+                    "requestType": "UpdateCheckoutTipRequest"
+                }
+            ]
+        },
+        {
+            "name": "WonderFulfillmentWebService",
+            "operations": [
+                {
+                    "name": "route",
+                    "method": "GET",
+                    "path": "/fulfillment/:fulfillmentId/route",
+                    "pathParams": [
+                        {
+                            "name": "fulfillmentId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetFulfillmentRouteResponse",
+                    "requestType": null
+                },
+                {
+                    "name": "status",
+                    "method": "GET",
+                    "path": "/fulfillment/:fulfillmentId/status",
+                    "pathParams": [
+                        {
+                            "name": "fulfillmentId",
+                            "type": "string"
+                        }
+                    ],
+                    "responseType": "GetFulfillmentStatusResponse",
+                    "requestType": null
+                }
+            ]
+        },
+        {
+            "name": "WonderPromotionWebService",
+            "operations": [
+                {
+                    "name": "add",
+                    "method": "POST",
+                    "path": "/promotion",
+                    "pathParams": [],
+                    "responseType": "void",
+                    "requestType": "AddPromotionRequest"
+                },
+                {
+                    "name": "list",
+                    "method": "GET",
+                    "path": "/promotion/list",
+                    "pathParams": [],
+                    "responseType": "ListPromotionResponse",
+                    "requestType": null
+                }
+            ]
+        }
+    ],
+    "types": [
+        {
+            "name": "RegisterDeviceRequest",
+            "type": "interface",
+            "definition": "{ device_unique_id: string | null; messaging_token: string | null; manufacturer: string | null; model: string | null; os_version: string | null; }"
+        },
+        {
+            "name": "RegisterDeviceResponse",
+            "type": "interface",
+            "definition": "{ device_id: string; }"
+        },
+        {
+            "name": "UpdateMessagingTokenRequest",
+            "type": "interface",
+            "definition": "{ messaging_token: string; }"
+        },
+        {
+            "name": "CreateSessionRequest",
+            "type": "interface",
+            "definition": "{ session_token: string | null; version: string; device: CreateSessionRequest$Device; }"
+        },
+        {
+            "name": "CreateSessionRequest$Device",
+            "type": "interface",
+            "definition": "{ id: string | null; device_unique_id: string | null; messaging_token: string | null; manufacturer: string | null; model: string | null; os_version: string | null; }"
+        },
+        {
+            "name": "CreateSessionResponse",
+            "type": "interface",
+            "definition": "{ device_id: string; session_token: string; longitude: number | null; latitude: number | null; address_line1: string | null; address_line2: string | null; city: string | null; state: string | null; county: string | null; zip_code: string | null; }"
+        },
+        {
+            "name": "CreateSessionRequestV2",
+            "type": "interface",
+            "definition": "{ session_token: string | null; version: string; device: CreateSessionRequestV2$Device; }"
+        },
+        {
+            "name": "CreateSessionRequestV2$Device",
+            "type": "interface",
+            "definition": "{ id: string | null; device_unique_id: string | null; messaging_token: string | null; manufacturer: string | null; model: string | null; os_version: string | null; }"
+        },
+        {
+            "name": "CreateSessionResponseV2",
+            "type": "interface",
+            "definition": "{ device_id: string; session_token: string; longitude: number | null; latitude: number | null; address_line1: string | null; address_line2: string | null; city: string | null; state: string | null; county: string | null; zip_code: string | null; }"
+        },
+        {
+            "name": "CheckVersionRequest",
+            "type": "interface",
+            "definition": "{ client_version: string; }"
+        },
+        {
+            "name": "CheckVersionResponse",
+            "type": "interface",
+            "definition": "{ latest_release_note: string; latest_url: string; latest_version: string; updated: boolean; must_update: boolean; }"
+        },
+        {
+            "name": "UserChangePasswordRequest",
+            "type": "interface",
+            "definition": "{ old_password: string; new_password: string; }"
+        },
+        {
+            "name": "UserCheckRequest",
+            "type": "interface",
+            "definition": "{ email: string; full_name: string; password: string; }"
+        },
+        {
+            "name": "UserLoginRequest",
+            "type": "interface",
+            "definition": "{ email: string; password: string; type: UserLoginTypeView | null; }"
+        },
+        {
+            "name": "UserLoginResponse",
+            "type": "interface",
+            "definition": "{ email: string; full_name: string | null; phone: string; }"
+        },
+        {
+            "name": "UserLogoutResponse",
+            "type": "interface",
+            "definition": "{ session_token: string; }"
+        },
+        {
+            "name": "UserSendCaptchaRequest",
+            "type": "interface",
+            "definition": "{ phone: string; }"
+        },
+        {
+            "name": "UserRegisterRequest",
+            "type": "interface",
+            "definition": "{ email: string; password: string; full_name: string; phone: string; code: string; type: UserRegisterTypeView | null; }"
+        },
+        {
+            "name": "UserRegisterResponse",
+            "type": "interface",
+            "definition": "{ email: string; full_name: string; phone: string; }"
+        },
+        {
+            "name": "UserResetPasswordRequest",
+            "type": "interface",
+            "definition": "{ verification_code: string; new_password: string; }"
+        },
+        {
+            "name": "UserResetPasswordResponse",
+            "type": "interface",
+            "definition": "{ email: string; full_name: string | null; phone: string; }"
+        },
+        {
+            "name": "UserSendVerificationCodeRequest",
+            "type": "interface",
+            "definition": "{ email: string | null; phone: string | null; }"
+        },
+        {
+            "name": "GetPreferencesResponse",
+            "type": "interface",
+            "definition": "{ delivery_preference: DeliveryTimeRangeView | null; diet_preferences: DietCode[] | null; allergies_note: string | null; }"
+        },
+        {
+            "name": "UpdatePreferencesRequest",
+            "type": "interface",
+            "definition": "{ delivery_preference: DeliveryTimeRangeView | null; diet_preferences: DietCode[]; allergies_note: string | null; }"
+        },
+        {
+            "name": "ProfileView",
+            "type": "interface",
+            "definition": "{ full_name: string | null; email: string; birthday_month: string | null; birthday_day: string | null; phone: string; }"
+        },
+        {
+            "name": "UpdateProfileRequest",
+            "type": "interface",
+            "definition": "{ full_name: string | null; birthday_month: string | null; birthday_day: string | null; phone: string | null; }"
+        },
+        {
+            "name": "GetSettingsResponse",
+            "type": "interface",
+            "definition": "{ notifications: GetSettingsResponse$Notifications; security: GetSettingsResponse$Security; marketing: GetSettingsResponse$Marketing; }"
+        },
+        {
+            "name": "GetSettingsResponse$Notifications",
+            "type": "interface",
+            "definition": "{ order_status: boolean | null; offers_and_promotions: boolean | null; texts: boolean | null; }"
+        },
+        {
+            "name": "GetSettingsResponse$Security",
+            "type": "interface",
+            "definition": "{ face_id_app_lock: boolean | null; pin_code_app_lock: boolean | null; }"
+        },
+        {
+            "name": "GetSettingsResponse$Marketing",
+            "type": "interface",
+            "definition": "{ send_me_emails: boolean | null; send_me_texts: boolean | null; }"
+        },
+        {
+            "name": "UpdateSettingsRequest",
+            "type": "interface",
+            "definition": "{ notifications: UpdateSettingsRequest$Notifications; security: UpdateSettingsRequest$Security; marketing: UpdateSettingsRequest$Marketing; }"
+        },
+        {
+            "name": "UpdateSettingsRequest$Notifications",
+            "type": "interface",
+            "definition": "{ order_status: boolean | null; offers_and_promotions: boolean | null; texts: boolean | null; }"
+        },
+        {
+            "name": "UpdateSettingsRequest$Security",
+            "type": "interface",
+            "definition": "{ face_id_app_lock: boolean | null; pin_code_app_lock: boolean | null; }"
+        },
+        {
+            "name": "UpdateSettingsRequest$Marketing",
+            "type": "interface",
+            "definition": "{ send_me_emails: boolean | null; send_me_texts: boolean | null; }"
+        },
+        {
+            "name": "GetAppStartAdResponse",
+            "type": "interface",
+            "definition": "{ ad: GetAppStartAdResponse$Ad | null; }"
+        },
+        {
+            "name": "GetAppStartAdResponse$Ad",
+            "type": "interface",
+            "definition": "{ image_url: string; image_hash: string; action_url: string; }"
+        },
+        {
+            "name": "MobileListRestaurantResponse",
+            "type": "interface",
+            "definition": "{ restaurants: MobileListRestaurantResponse$Restaurant[] | null; ads: MobileListRestaurantResponse$Advertisement[] | null; }"
+        },
+        {
+            "name": "MobileListRestaurantResponse$Restaurant",
+            "type": "interface",
+            "definition": "{ id: string; name: string; slogan: string | null; cuisine_type: string | null; cover_image_url: string; logo_image_url: string | null; delivery_minutes: number | null; price_rating: number; diets: DietCode[] | null; recommendation: string | null; recommended_by: string | null; }"
+        },
+        {
+            "name": "MobileListRestaurantResponse$Advertisement",
+            "type": "interface",
+            "definition": "{ image_url: string | null; sub_title: string; title: string; description: string; action_title: string; action_type: MobileActionTypeView; action_url: string; }"
+        },
+        {
+            "name": "MobileGetRestaurantResponse",
+            "type": "interface",
+            "definition": "{ id: string; name: string; cuisine_type: string | null; price_rating: number; recommendation: string | null; recommended_by: string | null; logo_image_url: string | null; delivery_minutes: number | null; diets: DietCode[] | null; }"
+        },
+        {
+            "name": "GetRestaurantChefPicksResponse",
+            "type": "interface",
+            "definition": "{ title: string; products: SuggestionProductView[]; }"
+        },
+        {
+            "name": "SuggestionProductView",
+            "type": "interface",
+            "definition": "{ chef_pick_id: string; product_id: string; item_name: string; description: string | null; large_image_url: string; small_image_url: string; diets: DietCode[] | null; price: string; base_price: string; options: SuggestionProductView$Option[] | null; }"
+        },
+        {
+            "name": "SuggestionProductView$Option",
+            "type": "interface",
+            "definition": "{ option_id: string; option_value_ids: string[] | null; }"
+        },
+        {
+            "name": "GetRestaurantDescriptionResponse",
+            "type": "interface",
+            "definition": "{ about_restaurant: string | null; photo_urls: string[]; }"
+        },
+        {
+            "name": "GetRestaurantMenuResponse",
+            "type": "interface",
+            "definition": "{ categories: GetRestaurantMenuResponse$Category[]; }"
+        },
+        {
+            "name": "GetRestaurantMenuResponse$Category",
+            "type": "interface",
+            "definition": "{ name: string; products: GetRestaurantMenuResponse$Product[]; }"
+        },
+        {
+            "name": "GetRestaurantMenuResponse$Product",
+            "type": "interface",
+            "definition": "{ product_id: string; customizable: boolean; item_name: string; description: string | null; large_image_url: string; small_image_url: string; diets: DietCode[] | null; price: string; }"
+        },
+        {
+            "name": "GetRestaurantOrderAgainResponse",
+            "type": "interface",
+            "definition": "{ conflict_cart_restaurant_id: string | null; products: GetRestaurantOrderAgainResponse$Product[]; }"
+        },
+        {
+            "name": "GetRestaurantOrderAgainResponse$Product",
+            "type": "interface",
+            "definition": "{ order_id: string; order_item_id: string; product_id: string; large_image_url: string; item_name: string; description: string | null; option_value_description: string; price: string; base_price: string; options: GetRestaurantOrderAgainResponse$Option[] | null; diets: DietCode[] | null; }"
+        },
+        {
+            "name": "GetRestaurantOrderAgainResponse$Option",
+            "type": "interface",
+            "definition": "{ option_id: string; option_value_ids: string[]; }"
+        },
+        {
+            "name": "GetRestaurantRecommendedProductResponse",
+            "type": "interface",
+            "definition": "{ title: string; products: SuggestionProductView[]; }"
+        },
+        {
+            "name": "GoTosView",
+            "type": "interface",
+            "definition": "{ order_restaurants: GoTosView$OrderRestaurant[]; }"
+        },
+        {
+            "name": "GoTosView$OrderRestaurant",
+            "type": "interface",
+            "definition": "{ restaurant: GoTosView$Restaurant; show_looking_for_more: boolean; orders: GoTosView$Order[]; }"
+        },
+        {
+            "name": "GoTosView$Restaurant",
+            "type": "interface",
+            "definition": "{ id: string; delivery_minutes: number | null; name: string; cuisine_type: string | null; price_rating: number; logo_image_url: string | null; diets: DietCode[] | null; recommendation: string | null; recommended_by: string | null; }"
+        },
+        {
+            "name": "GoTosView$Order",
+            "type": "interface",
+            "definition": "{ id: string; order_date: string; image_url: string; product_names: string[]; }"
+        },
+        {
+            "name": "ListAddressResponse",
+            "type": "interface",
+            "definition": "{ browser_location: ListAddressResponse$BrowserLocation | null; addresses: AddressView[]; }"
+        },
+        {
+            "name": "ListAddressResponse$BrowserLocation",
+            "type": "interface",
+            "definition": "{ address_line1: string; address_line2: string | null; latitude: number; longitude: number; city: string | null; state: string | null; county: string | null; zip_code: string | null; selected: boolean; }"
+        },
+        {
+            "name": "AddressView",
+            "type": "interface",
+            "definition": "{ id: string; ship_to: string | null; latitude: number; longitude: number; address_line1: string; address_line2: string | null; unit_number_or_company: string | null; phone: string; city: string | null; state: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; default_address: boolean; selected: boolean | null; }"
+        },
+        {
+            "name": "CreateAddressRequest",
+            "type": "interface",
+            "definition": "{ ship_to: string | null; latitude: number; longitude: number; address_line1: string; address_line2: string | null; unit_number_or_company: string | null; phone: string; state: string | null; city: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; default_address: boolean; }"
+        },
+        {
+            "name": "CreateAddressResponse",
+            "type": "interface",
+            "definition": "{ id: string; }"
+        },
+        {
+            "name": "UpdateAddressRequest",
+            "type": "interface",
+            "definition": "{ ship_to: string | null; latitude: number; longitude: number; address_line1: string; address_line2: string | null; unit_number_or_company: string | null; phone: string; state: string | null; city: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; default_address: boolean; }"
+        },
+        {
+            "name": "LocationRequest",
+            "type": "interface",
+            "definition": "{ latitude: number; longitude: number; address_id: string | null; address_line1: string; address_line2: string | null; state: string | null; city: string | null; county: string | null; zip_code: string | null; }"
+        },
+        {
+            "name": "SubscribeLocationRequest",
+            "type": "interface",
+            "definition": "{ email: string; latitude: number; longitude: number; address_name: string; address_short_name: string | null; state: string | null; city: string | null; county: string | null; zip_code: string | null; }"
+        },
+        {
+            "name": "GetProductResponse",
+            "type": "interface",
+            "definition": "{ id: string; restaurant_id: string; item_name: string; description: string | null; large_image_url: string; small_image_url: string; diets: DietCode[] | null; formatted_price: string; price: number; formatted_base_price: string; base_price: number; options: GetProductResponse$Option[] | null; nutrition: GetProductResponse$Nutrition | null; }"
+        },
+        {
+            "name": "GetProductResponse$Option",
+            "type": "interface",
+            "definition": "{ id: string; name: string; min_choices: number; max_choices: number | null; selected_choices: number; free_until: number | null; ui_type: GetProductResponse$UIType | null; values: GetProductResponse$OptionValue[] | null; }"
+        },
+        {
+            "name": "GetProductResponse$OptionValue",
+            "type": "interface",
+            "definition": "{ id: string; name: string; image_url: string | null; formatted_price: string; price: number; calories: number | null; diets: DietCode[] | null; allergens: string[] | null; selected: boolean; }"
+        },
+        {
+            "name": "GetProductResponse$Nutrition",
+            "type": "interface",
+            "definition": "{ allergen: string | null; ingredient: string | null; calorie: number | null; }"
+        },
+        {
+            "name": "GetGoesWellWithProductResponse",
+            "type": "interface",
+            "definition": "{ restaurant_id: string; restaurant_name: string; large_image_url: string; item_name: string; description: string | null; price: string; diets: DietCode[] | null; }"
+        },
+        {
+            "name": "MobileListCreditCardResponse",
+            "type": "interface",
+            "definition": "{ payments: MobileListCreditCardResponse$Payment[]; }"
+        },
+        {
+            "name": "MobileListCreditCardResponse$Payment",
+            "type": "interface",
+            "definition": "{ id: string; payment_info: string; is_default: boolean; payment_method: PaymentMethodView; is_expired: boolean; }"
+        },
+        {
+            "name": "MobileCreateCreditCardRequest",
+            "type": "interface",
+            "definition": "{ card_number: string | null; expiration_year: string | null; expiration_month: string | null; cvc: string | null; billing_zip_code: string | null; is_default: boolean; }"
+        },
+        {
+            "name": "MobileCreateCreditCardResponse",
+            "type": "interface",
+            "definition": "{ id: string; }"
+        },
+        {
+            "name": "MobileGetCreditCardResponse",
+            "type": "interface",
+            "definition": "{ last_four_digits: string; expiration_year: string; expiration_month: string; billing_zip_code: string; is_default: boolean; }"
+        },
+        {
+            "name": "MobileUpdateCreditCardRequest",
+            "type": "interface",
+            "definition": "{ expiration_year: string | null; expiration_month: string | null; billing_zip_code: string | null; is_default: boolean; }"
+        },
+        {
+            "name": "UpdateDefaultPaymentMethodRequest",
+            "type": "interface",
+            "definition": "{ default_payment_method: PaymentMethodView | null; }"
+        },
+        {
+            "name": "CheckDefaultPaymentMethodRequest",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView; }"
+        },
+        {
+            "name": "CheckDefaultPaymentMethodResponse",
+            "type": "interface",
+            "definition": "{ is_default: boolean; }"
+        },
+        {
+            "name": "CartView",
+            "type": "interface",
+            "definition": "{ restaurant_id: string; restaurant_name: string; cart_items: CartItemView[]; goes_well_with: GoesWellWithProductView[] | null; need_utensils: boolean; promotion: PromotionView | null; price_summary: PriceSummaryView; step: CheckoutStepView; }"
+        },
+        {
+            "name": "CartItemView",
+            "type": "interface",
+            "definition": "{ id: string; product_id: string; item_name: string; option_value_description: string | null; quantity: number; subtotal: string; status: CartItemStatusView; }"
+        },
+        {
+            "name": "GoesWellWithProductView",
+            "type": "interface",
+            "definition": "{ product_id: string; large_image_url: string; item_name: string; description: string | null; price: string; has_option: boolean; }"
+        },
+        {
+            "name": "PromotionView",
+            "type": "interface",
+            "definition": "{ id: string; code: string; name: string; brief_description: string; description: string; }"
+        },
+        {
+            "name": "PriceSummaryView",
+            "type": "interface",
+            "definition": "{ formatted_subtotal: string; formatted_tax: string; formatted_delivery_fee: string; promotion_discount: PriceSummaryView$PromotionDiscount | null; formatted_credit: string | null; formatted_total: string; formatted_minimum_difference: string | null; }"
+        },
+        {
+            "name": "PriceSummaryView$PromotionDiscount",
+            "type": "interface",
+            "definition": "{ code: string; name: string; discount: string; }"
+        },
+        {
+            "name": "AddCartItemRequest",
+            "type": "interface",
+            "definition": "{ restaurant_id: string; product_id: string; product_name: string | null; options: AddCartItemRequest$Option[] | null; notes: string | null; quantity: number; }"
+        },
+        {
+            "name": "AddCartItemRequest$Option",
+            "type": "interface",
+            "definition": "{ option_id: string; option_value_ids: string[] | null; }"
+        },
+        {
+            "name": "CartSummaryView",
+            "type": "interface",
+            "definition": "{ item_count: number; subtotal: string; }"
+        },
+        {
+            "name": "GetCartItemResponse",
+            "type": "interface",
+            "definition": "{ id: string; restaurant_id: string; item_name: string; description: string | null; large_image_url: string; small_image_url: string; diets: DietCode[] | null; formatted_base_price: string; base_price: number; formatted_price: string; price: number; quantity: number; options: GetCartItemResponse$Option[] | null; nutrition: GetCartItemResponse$Nutrition | null; notes: string | null; }"
+        },
+        {
+            "name": "GetCartItemResponse$Option",
+            "type": "interface",
+            "definition": "{ id: string; name: string; min_choices: number; max_choices: number | null; selected_choices: number; free_until: number | null; ui_type: GetCartItemResponse$UIType | null; values: GetCartItemResponse$OptionValue[] | null; }"
+        },
+        {
+            "name": "GetCartItemResponse$OptionValue",
+            "type": "interface",
+            "definition": "{ id: string; name: string; image_url: string | null; formatted_price: string; price: number; calories: number | null; diets: DietCode[] | null; allergens: string[] | null; selected: boolean; }"
+        },
+        {
+            "name": "GetCartItemResponse$Nutrition",
+            "type": "interface",
+            "definition": "{ allergen: string | null; ingredient: string | null; calorie: number | null; }"
+        },
+        {
+            "name": "UpdateCartItemRequest",
+            "type": "interface",
+            "definition": "{ options: UpdateCartItemRequest$Option[] | null; notes: string | null; quantity: number; }"
+        },
+        {
+            "name": "UpdateCartItemRequest$Option",
+            "type": "interface",
+            "definition": "{ option_id: string; option_value_ids: string[]; }"
+        },
+        {
+            "name": "UpdateCartPromotionRequest",
+            "type": "interface",
+            "definition": "{ promotion_id: string; }"
+        },
+        {
+            "name": "UpdateCartPromotionResponse",
+            "type": "interface",
+            "definition": "{ promotion: PromotionView; price_summary: PriceSummaryView; }"
+        },
+        {
+            "name": "UpdateCartUtensilsRequest",
+            "type": "interface",
+            "definition": "{ need_utensils: boolean; }"
+        },
+        {
+            "name": "UpdateCartUtensilsResponse",
+            "type": "interface",
+            "definition": "{ price_summary: PriceSummaryView; }"
+        },
+        {
+            "name": "MobileSearchOrderRequest",
+            "type": "interface",
+            "definition": "{ page_index: number; page_size: number | null; }"
+        },
+        {
+            "name": "MobileSearchOrderResponse",
+            "type": "interface",
+            "definition": "{ active_orders: MobileSearchOrderResponse$Order[]; other_orders: MobileSearchOrderResponse$Order[]; total_page: number; page_index: number; }"
+        },
+        {
+            "name": "MobileSearchOrderResponse$Order",
+            "type": "interface",
+            "definition": "{ id: string; restaurant_name: string; order_date: Date; status: OrderStatusView; items: MobileSearchOrderResponse$OrderItem[]; }"
+        },
+        {
+            "name": "MobileSearchOrderResponse$OrderItem",
+            "type": "interface",
+            "definition": "{ name: string; quantity: number; }"
+        },
+        {
+            "name": "GetOrderResponse",
+            "type": "interface",
+            "definition": "{ restaurant: GetOrderResponse$Restaurant; address: GetOrderResponse$Address; items: GetOrderResponse$Item[]; price_summary: GetOrderResponse$PriceSummary; payment: GetOrderResponse$Payment; }"
+        },
+        {
+            "name": "GetOrderResponse$Restaurant",
+            "type": "interface",
+            "definition": "{ id: string | null; name: string | null; }"
+        },
+        {
+            "name": "GetOrderResponse$Address",
+            "type": "interface",
+            "definition": "{ address_line: string; longitude: number; latitude: number; unit_number_or_company: string | null; phone: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; }"
+        },
+        {
+            "name": "GetOrderResponse$Item",
+            "type": "interface",
+            "definition": "{ product_name: string; option_value_description: string; quantity: number; subtotal: string; }"
+        },
+        {
+            "name": "GetOrderResponse$PriceSummary",
+            "type": "interface",
+            "definition": "{ subtotal: string; tax: string; delivery_fee: string; tip: string; promotion_discount: GetOrderResponse$PromotionDiscount | null; total: string; credit: string | null; actual_paid: string; }"
+        },
+        {
+            "name": "GetOrderResponse$PromotionDiscount",
+            "type": "interface",
+            "definition": "{ code: string; name: string; discount: string; }"
+        },
+        {
+            "name": "GetOrderResponse$Payment",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView; payment_info: string | null; }"
+        },
+        {
+            "name": "CancelOrderRequest",
+            "type": "interface",
+            "definition": "{ cancel_reason_type: CancelOrderRequest$CancelReasonType; custom_cancel_reason: string | null; }"
+        },
+        {
+            "name": "GetOrderItemHopUpResponse",
+            "type": "interface",
+            "definition": "{ restaurant_id: string; restaurant_name: string; product_id: string; item_name: string; description: string | null; large_image_url: string; diets: DietCode[] | null; options: GetOrderItemHopUpResponse$Option[] | null; price: string; available: boolean; }"
+        },
+        {
+            "name": "GetOrderItemHopUpResponse$Option",
+            "type": "interface",
+            "definition": "{ option_id: string; option_value_ids: string[]; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse",
+            "type": "interface",
+            "definition": "{ order: GetOrderReceiptResponse$Order; restaurant: GetOrderReceiptResponse$Restaurant; address: GetOrderReceiptResponse$Address; chefs: GetOrderReceiptResponse$Chef[]; order_items: GetOrderReceiptResponse$OrderItem[]; price_summary: GetOrderReceiptResponse$PriceSummary; can_reorder: boolean; tip_operate_type: TipOperateTypeView | null; tip_type: TipTypeView | null; tip: number | null; formatted_tip: string | null; tip_options: GetOrderReceiptResponse$TipOption[] | null; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$Order",
+            "type": "interface",
+            "definition": "{ order_id: string; status: OrderStatusView; overall_rating: number | null; order_date: Date; payment_method: PaymentMethodView; payment_info: string | null; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$Restaurant",
+            "type": "interface",
+            "definition": "{ id: string; name: string; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$Address",
+            "type": "interface",
+            "definition": "{ address_line: string; longitude: number; latitude: number; unit_number_or_company: string | null; phone: string | null; city: string | null; state: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$Chef",
+            "type": "interface",
+            "definition": "{ name: string; avatar_image_url: string; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$OrderItem",
+            "type": "interface",
+            "definition": "{ quantity: number; product_name: string; price: string; option_value_description: string; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$PriceSummary",
+            "type": "interface",
+            "definition": "{ subtotal_amount: number; subtotal: string; tax: string; delivery_fee: string; tip: string | null; promotion_discount: GetOrderReceiptResponse$PromotionDiscount | null; credit: string | null; total: string; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$PromotionDiscount",
+            "type": "interface",
+            "definition": "{ code: string; discount: string | null; }"
+        },
+        {
+            "name": "GetOrderReceiptResponse$TipOption",
+            "type": "interface",
+            "definition": "{ value: TipTypeView; name: string; tip: number; formatted_tip: string; }"
+        },
+        {
+            "name": "GetReorderResponse",
+            "type": "interface",
+            "definition": "{ restaurant: GetReorderResponse$Restaurant; address: GetReorderResponse$Address; items: GetReorderResponse$Item[]; total_amount: number; total: string; payment: GetReorderResponse$Payment | null; step: ReorderStepView | null; }"
+        },
+        {
+            "name": "GetReorderResponse$Restaurant",
+            "type": "interface",
+            "definition": "{ name: string; estimated_delivery_time_in_mins: number | null; }"
+        },
+        {
+            "name": "GetReorderResponse$Address",
+            "type": "interface",
+            "definition": "{ id: string | null; longitude: number; latitude: number; address_name: string; address_short_name: string | null; unit_number_or_company: string | null; phone: string | null; city: string | null; state: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; }"
+        },
+        {
+            "name": "GetReorderResponse$Item",
+            "type": "interface",
+            "definition": "{ id: string; product_name: string; option_value_description: string; quantity: number; subtotal: string; available: boolean; }"
+        },
+        {
+            "name": "GetReorderResponse$Payment",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView | null; credit_card_id: string | null; payment_info: string | null; }"
+        },
+        {
+            "name": "ReorderRequest",
+            "type": "interface",
+            "definition": "{ address_id: string | null; credit_card_id: string | null; apple_pay_token: string | null; total: number | null; }"
+        },
+        {
+            "name": "ReorderResponse",
+            "type": "interface",
+            "definition": "{ order_id: string | null; step: ReorderStepView | null; }"
+        },
+        {
+            "name": "CheckReorderRequest",
+            "type": "interface",
+            "definition": "{ available_time_in_mins: number | null; estimated_ready_to_eat_time_from: Date | null; estimated_ready_to_eat_time_to: Date | null; }"
+        },
+        {
+            "name": "CheckReorderResponse",
+            "type": "interface",
+            "definition": "{ address_not_exist: boolean; credit_card_not_exist: boolean; estimated_time_increased: boolean; }"
+        },
+        {
+            "name": "ReviewOrderRequest",
+            "type": "interface",
+            "definition": "{ overall_rating: number; compliments: MobileComplimentTypeView[] | null; feedback: MobileFeedbackTypeView[] | null; comments: string | null; }"
+        },
+        {
+            "name": "UpdateReviewShowedRequest",
+            "type": "interface",
+            "definition": "{ showed: boolean; }"
+        },
+        {
+            "name": "GetOrderStatusResponse",
+            "type": "interface",
+            "definition": "{ un_reviewed: boolean; fulfillment: GetOrderStatusResponse$Fulfillment | null; }"
+        },
+        {
+            "name": "GetOrderStatusResponse$Fulfillment",
+            "type": "interface",
+            "definition": "{ fulfillment_id: string; restaurant_name: string; estimated_delivery_time: Date | null; remain_cancel_time: number | null; total_time_in_mins: number | null; remain_time_in_mins: number | null; chefs: GetOrderStatusResponse$Chef[]; current_status: FulfillmentStatusView; }"
+        },
+        {
+            "name": "GetOrderStatusResponse$Chef",
+            "type": "interface",
+            "definition": "{ avatar_image_url: string | null; name: string; gender: GenderView; }"
+        },
+        {
+            "name": "UpdateOrderTipRequest",
+            "type": "interface",
+            "definition": "{ tip_type: TipTypeView; tip_amount: number | null; payment_method: PaymentMethodView | null; credit_card_id: string | null; apple_pay_token: string | null; }"
+        },
+        {
+            "name": "UpdateOrderTipResponse",
+            "type": "interface",
+            "definition": "{ tip_change_type: TipOperateTypeView | null; price_summary: UpdateOrderTipResponse$PriceSummary; }"
+        },
+        {
+            "name": "UpdateOrderTipResponse$PriceSummary",
+            "type": "interface",
+            "definition": "{ tip: string; credit: string | null; total: string; }"
+        },
+        {
+            "name": "GetOrderTipPaymentRequest",
+            "type": "interface",
+            "definition": "{ tip_type: TipTypeView; tip_amount: number | null; }"
+        },
+        {
+            "name": "GetOrderTipPaymentResponse",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView; order_credit_card_id: string | null; default_credit_card_id: string | null; }"
+        },
+        {
+            "name": "ListActiveOrderResponse",
+            "type": "interface",
+            "definition": "{ orders: OrderView[]; }"
+        },
+        {
+            "name": "OrderView",
+            "type": "interface",
+            "definition": "{ id: string; restaurant_name: string; order_date: Date; status: OrderStatusView; items: OrderView$OrderItem[]; }"
+        },
+        {
+            "name": "OrderView$OrderItem",
+            "type": "interface",
+            "definition": "{ name: string; quantity: number; }"
+        },
+        {
+            "name": "GetOrderProgressResponse",
+            "type": "interface",
+            "definition": "{ order_progress: OrderProgressView | null; }"
+        },
+        {
+            "name": "OrderProgressView",
+            "type": "interface",
+            "definition": "{ count: number; orders: OrderProgressView$Order[]; }"
+        },
+        {
+            "name": "OrderProgressView$Order",
+            "type": "interface",
+            "definition": "{ id: string; order_status: OrderStatusView; order_status_title: string; restaurant_name: string; estimated_delivery_time: Date | null; actual_delivery_time: Date | null; }"
+        },
+        {
+            "name": "SearchOtherOrderRequest",
+            "type": "interface",
+            "definition": "{ page_index: number; page_size: number | null; }"
+        },
+        {
+            "name": "SearchOtherOrderResponse",
+            "type": "interface",
+            "definition": "{ total_page: number; page_index: number; orders: OrderView[]; }"
+        },
+        {
+            "name": "GetUnReviewOrderResponse",
+            "type": "interface",
+            "definition": "{ un_review_order: UnReviewOrderView | null; }"
+        },
+        {
+            "name": "UnReviewOrderView",
+            "type": "interface",
+            "definition": "{ order_id: string; chef_avatar_image_url: string | null; }"
+        },
+        {
+            "name": "GetReorderResponseV2",
+            "type": "interface",
+            "definition": "{ restaurant: GetReorderResponseV2$Restaurant; address: GetReorderResponseV2$Address; available_time_in_mins: number; estimated_ready_to_eat_time_from: Date; estimated_ready_to_eat_time_to: Date; items: GetReorderResponseV2$Item[]; price_summary: GetReorderResponseV2$PriceSummary | null; payment: GetReorderResponseV2$Payment | null; checkout_id: string; }"
+        },
+        {
+            "name": "GetReorderResponseV2$Restaurant",
+            "type": "interface",
+            "definition": "{ id: string | null; name: string | null; }"
+        },
+        {
+            "name": "GetReorderResponseV2$Address",
+            "type": "interface",
+            "definition": "{ id: string | null; longitude: number; latitude: number; address_name: string; address_short_name: string | null; unit_number_or_company: string | null; phone: string | null; city: string | null; state: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; }"
+        },
+        {
+            "name": "GetReorderResponseV2$Item",
+            "type": "interface",
+            "definition": "{ id: string; product_name: string; option_value_description: string; quantity: number; subtotal: string; available: boolean; }"
+        },
+        {
+            "name": "GetReorderResponseV2$PriceSummary",
+            "type": "interface",
+            "definition": "{ subtotal: number; formatted_subtotal: string; tax: number; formatted_tax: string; delivery_fee: number; formatted_delivery_fee: string; tip_type: TipTypeView; tip: number; formatted_tip: string; credit: number | null; formatted_credit: string | null; total: number; formatted_total: string; }"
+        },
+        {
+            "name": "GetReorderResponseV2$Payment",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView | null; credit_card_id: string | null; payment_info: string | null; }"
+        },
+        {
+            "name": "ReorderRequestV2",
+            "type": "interface",
+            "definition": "{ address_id: string; tip_type: TipTypeView | null; tip_amount: number | null; credit_card_id: string | null; apple_pay_token: string | null; credit: number; payable: number; checkout_id: string | null; }"
+        },
+        {
+            "name": "ReorderResponseV2",
+            "type": "interface",
+            "definition": "{ order_id: string; }"
+        },
+        {
+            "name": "GetCheckoutResponse",
+            "type": "interface",
+            "definition": "{ address: AddressView | null; payment_method: PaymentMethodView; credit_card: GetCheckoutResponse$CreditCard | null; tip_type: TipTypeView | null; tip: string | null; tip_options: GetCheckoutResponse$TipOption[]; estimated_driving_minute: number | null; estimated_cooking_minute: number | null; estimated_ready_to_eat_time_from: Date | null; estimated_ready_to_eat_time_to: Date | null; checkout_items: CheckoutItem[]; price_summary: CheckoutPriceSummaryView | null; }"
+        },
+        {
+            "name": "GetCheckoutResponse$CreditCard",
+            "type": "interface",
+            "definition": "{ id: string; credit_card_info: string; is_expired: boolean; }"
+        },
+        {
+            "name": "GetCheckoutResponse$TipOption",
+            "type": "interface",
+            "definition": "{ value: TipTypeView; name: string; }"
+        },
+        {
+            "name": "CheckoutItem",
+            "type": "interface",
+            "definition": "{ item_name: string; option_value_description: string | null; quantity: number; subtotal: string; }"
+        },
+        {
+            "name": "CheckoutPriceSummaryView",
+            "type": "interface",
+            "definition": "{ subtotal: number; formatted_subtotal: string; tax: number; formatted_tax: string; delivery_fee: number | null; formatted_delivery_fee: string | null; tip: number; formatted_tip: string; credit: number | null; formatted_credit: string | null; promotion_discount: CheckoutPriceSummaryView$PromotionDiscount | null; discount: number | null; formatted_discount: string | null; total: number; formatted_total: string; }"
+        },
+        {
+            "name": "CheckoutPriceSummaryView$PromotionDiscount",
+            "type": "interface",
+            "definition": "{ code: string; name: string; discount: number; formatted_discount: string; }"
+        },
+        {
+            "name": "UpdateCheckoutAddressRequest",
+            "type": "interface",
+            "definition": "{ address_id: string; }"
+        },
+        {
+            "name": "UpdateCheckoutAddressResponse",
+            "type": "interface",
+            "definition": "{ address: UpdateCheckoutAddressResponse$Address; estimated_driving_minute: number; estimated_cooking_minute: number; estimated_ready_to_eat_time_from: Date; estimated_ready_to_eat_time_to: Date; }"
+        },
+        {
+            "name": "UpdateCheckoutAddressResponse$Address",
+            "type": "interface",
+            "definition": "{ id: string | null; longitude: number; latitude: number; address_name: string; address_short_name: string | null; city: string | null; state: string | null; county: string | null; zip_code: string | null; unit_number_or_company: string | null; phone: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; }"
+        },
+        {
+            "name": "CheckCheckoutResponse",
+            "type": "interface",
+            "definition": "{ address_not_exist: boolean; payment_method: PaymentMethodView | null; credit_card_id: string | null; }"
+        },
+        {
+            "name": "AddCreditCardPaymentRequest",
+            "type": "interface",
+            "definition": "{ card_number: string | null; expiration_year: string | null; expiration_month: string | null; cvc: string | null; billing_zip_code: string | null; is_default: boolean; }"
+        },
+        {
+            "name": "AddCreditCardPaymentResponse",
+            "type": "interface",
+            "definition": "{ credit_card_id: string; step: StepView; checkout_step: CheckoutStepView | null; }"
+        },
+        {
+            "name": "PlaceOrderRequest",
+            "type": "interface",
+            "definition": "{ tip_type: TipTypeView | null; tip_amount: number | null; apple_pay_token: string | null; credit: number; payable: number; }"
+        },
+        {
+            "name": "PlaceOrderResponse",
+            "type": "interface",
+            "definition": "{ order_id: string; }"
+        },
+        {
+            "name": "UpdateCheckoutPaymentRequest",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView; credit_card_id: string | null; }"
+        },
+        {
+            "name": "UpdateCheckoutPaymentResponse",
+            "type": "interface",
+            "definition": "{ payment_method: PaymentMethodView; credit_card: UpdateCheckoutPaymentResponse$CreditCard | null; }"
+        },
+        {
+            "name": "UpdateCheckoutPaymentResponse$CreditCard",
+            "type": "interface",
+            "definition": "{ id: string; credit_card_info: string; is_expired: boolean; }"
+        },
+        {
+            "name": "RefreshCheckoutResponse",
+            "type": "interface",
+            "definition": "{ address: AddressView | null; estimated_driving_minute: number | null; estimated_cooking_minute: number | null; estimated_ready_to_eat_time_from: Date | null; estimated_ready_to_eat_time_to: Date | null; }"
+        },
+        {
+            "name": "AddAddressRequest",
+            "type": "interface",
+            "definition": "{ ship_to: string | null; latitude: number; longitude: number; address_name: string; address_short_name: string | null; unit_number_or_company: string | null; phone: string; state: string | null; city: string | null; county: string | null; zip_code: string | null; nickname: Nickname | null; custom_nickname: string | null; delivery_instructions: string | null; default_address: boolean; }"
+        },
+        {
+            "name": "AddAddressResponse",
+            "type": "interface",
+            "definition": "{ address_id: string; step: StepView; checkout_step: CheckoutStepView | null; }"
+        },
+        {
+            "name": "UpdateCheckoutTipRequest",
+            "type": "interface",
+            "definition": "{ tip_type: TipTypeView | null; tip_amount: number | null; }"
+        },
+        {
+            "name": "UpdateCheckoutTipResponse",
+            "type": "interface",
+            "definition": "{ tip_Type: TipTypeView | null; tip: string | null; price_summary: CheckoutPriceSummaryView; }"
+        },
+        {
+            "name": "GetFulfillmentRouteResponse",
+            "type": "interface",
+            "definition": "{ truck_location: Location; locations: Location[] | null; }"
+        },
+        {
+            "name": "Location",
+            "type": "interface",
+            "definition": "{ latitude: number; longitude: number; }"
+        },
+        {
+            "name": "GetFulfillmentStatusResponse",
+            "type": "interface",
+            "definition": "{ estimated_delivery_time: Date | null; remain_cancel_time: number | null; total_time_in_mins: number | null; remain_time_in_mins: number | null; current_status: FulfillmentStatusView; }"
+        },
+        {
+            "name": "AddPromotionRequest",
+            "type": "interface",
+            "definition": "{ promotion_code: string; }"
+        },
+        {
+            "name": "ListPromotionResponse",
+            "type": "interface",
+            "definition": "{ promotions: ListPromotionResponse$Promotion[]; }"
+        },
+        {
+            "name": "ListPromotionResponse$Promotion",
+            "type": "interface",
+            "definition": "{ id: string; promotion_code: string; promotion_name: string; brief_description: string; description: string; valid_start_date: Date; valid_end_date: Date; eligible: boolean; ineligible_reason: string | null; selected: boolean; }"
+        },
+        {
+            "name": "AJAXErrorResponse",
+            "type": "interface",
+            "definition": "{ id: string | null; errorCode: string | null; message: string | null; }"
+        },
+        {
+            "name": "MobileErrorResponse",
+            "type": "interface",
+            "definition": "{ error_code: string | null; error_message: string | null; }"
+        },
+        {
+            "name": "UserLoginTypeView",
+            "type": "enum",
+            "definition": "{ NORMAL = \"NORMAL\", CHECKOUT = \"CHECKOUT\", }"
+        },
+        {
+            "name": "UserRegisterTypeView",
+            "type": "enum",
+            "definition": "{ NORMAL = \"NORMAL\", CHECKOUT = \"CHECKOUT\", CART = \"CART\", }"
+        },
+        {
+            "name": "DeliveryTimeRangeView",
+            "type": "enum",
+            "definition": "{ ASAP = \"ASAP\", MIN_20_30 = \"MIN_20_30\", MIN_30_PLUS = \"MIN_30_PLUS\", }"
+        },
+        {
+            "name": "DietCode",
+            "type": "enum",
+            "definition": "{ GLUTEN_FREE = \"GLUTEN_FREE\", VEGAN = \"VEGAN\", VEGETARIAN = \"VEGETARIAN\", }"
+        },
+        {
+            "name": "MobileActionTypeView",
+            "type": "enum",
+            "definition": "{ EXTERNAL_LINK = \"EXTERNAL_LINK\", INTERNAL_LINK = \"INTERNAL_LINK\", INTERNAL_PAGE = \"INTERNAL_PAGE\", }"
+        },
+        {
+            "name": "Nickname",
+            "type": "enum",
+            "definition": "{ HOME = \"HOME\", WORK = \"WORK\", OTHER = \"OTHER\", }"
+        },
+        {
+            "name": "GetProductResponse$UIType",
+            "type": "enum",
+            "definition": "{ SWITCH = \"SWITCH\", NORMAL = \"NORMAL\", }"
+        },
+        {
+            "name": "PaymentMethodView",
+            "type": "enum",
+            "definition": "{ CREDIT_CARD = \"CREDIT_CARD\", APPLE_PAY = \"APPLE_PAY\", CREDIT = \"CREDIT\", }"
+        },
+        {
+            "name": "CartItemStatusView",
+            "type": "enum",
+            "definition": "{ UNAVAILABLE = \"UNAVAILABLE\", INELIGIBLE = \"INELIGIBLE\", ELIGIBLE = \"ELIGIBLE\", }"
+        },
+        {
+            "name": "CheckoutStepView",
+            "type": "enum",
+            "definition": "{ ADD_ADDRESS = \"ADD_ADDRESS\", ADD_PAYMENT = \"ADD_PAYMENT\", CHECKOUT = \"CHECKOUT\", }"
+        },
+        {
+            "name": "GetCartItemResponse$UIType",
+            "type": "enum",
+            "definition": "{ SWITCH = \"SWITCH\", NORMAL = \"NORMAL\", }"
+        },
+        {
+            "name": "OrderStatusView",
+            "type": "enum",
+            "definition": "{ PENDING_PAYMENT = \"PENDING_PAYMENT\", PAID = \"PAID\", PENDING = \"PENDING\", IN_TRANSIT = \"IN_TRANSIT\", IN_COOKING = \"IN_COOKING\", FOOD_IS_READY = \"FOOD_IS_READY\", DELIVERED = \"DELIVERED\", CANCELED = \"CANCELED\", PAYMENT_FAILED = \"PAYMENT_FAILED\", }"
+        },
+        {
+            "name": "CancelOrderRequest$CancelReasonType",
+            "type": "enum",
+            "definition": "{ DO_NOT_WANT_IT_ANYMORE = \"DO_NOT_WANT_IT_ANYMORE\", WRONG_ADDRESS = \"WRONG_ADDRESS\", TOO_SLOW = \"TOO_SLOW\", OTHER = \"OTHER\", }"
+        },
+        {
+            "name": "TipOperateTypeView",
+            "type": "enum",
+            "definition": "{ ADD = \"ADD\", CHANGE = \"CHANGE\", }"
+        },
+        {
+            "name": "TipTypeView",
+            "type": "enum",
+            "definition": "{ TEN_PERCENT = \"TEN_PERCENT\", FIFTEEN_PERCENT = \"FIFTEEN_PERCENT\", TWENTY_PERCENT = \"TWENTY_PERCENT\", TWENTY_FIVE_PERCENT = \"TWENTY_FIVE_PERCENT\", CUSTOM = \"CUSTOM\", DOLLAR_ONE = \"DOLLAR_ONE\", DOLLAR_TWO = \"DOLLAR_TWO\", DOLLAR_THREE = \"DOLLAR_THREE\", DOLLAR_FOUR = \"DOLLAR_FOUR\", }"
+        },
+        {
+            "name": "ReorderStepView",
+            "type": "enum",
+            "definition": "{ ADD_ADDRESS = \"ADD_ADDRESS\", ADD_PAYMENT = \"ADD_PAYMENT\", }"
+        },
+        {
+            "name": "MobileComplimentTypeView",
+            "type": "enum",
+            "definition": "{ BEST_FOOD_PREPARATION = \"BEST_FOOD_PREPARATION\", EXCELLENT_SERVICE = \"EXCELLENT_SERVICE\", GREAT_CONVERSATION = \"GREAT_CONVERSATION\", }"
+        },
+        {
+            "name": "MobileFeedbackTypeView",
+            "type": "enum",
+            "definition": "{ FOOD_QUALITY = \"FOOD_QUALITY\", SERVICE = \"SERVICE\", PROFESSIONALISM = \"PROFESSIONALISM\", }"
+        },
+        {
+            "name": "GenderView",
+            "type": "enum",
+            "definition": "{ MALE = \"MALE\", FEMALE = \"FEMALE\", }"
+        },
+        {
+            "name": "FulfillmentStatusView",
+            "type": "enum",
+            "definition": "{ NEW = \"NEW\", PENDING = \"PENDING\", IN_TRANSIT = \"IN_TRANSIT\", IN_COOKING = \"IN_COOKING\", FOOD_IS_READY = \"FOOD_IS_READY\", DELIVERED = \"DELIVERED\", CANCELED = \"CANCELED\", }"
+        },
+        {
+            "name": "StepView",
+            "type": "enum",
+            "definition": "{ ADD_ADDRESS = \"ADD_ADDRESS\", ADD_PAYMENT = \"ADD_PAYMENT\", CREATE_ACCOUNT = \"CREATE_ACCOUNT\", REVIEW_ORDER = \"REVIEW_ORDER\", }"
+        }
+    ]
+}

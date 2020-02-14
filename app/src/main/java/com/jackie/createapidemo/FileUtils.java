@@ -214,7 +214,7 @@ public class FileUtils {
 
             // 如果有替换操作,则将替换后的新文件内容字符串写入回文件中去
             if(hasReplace) {
-                writeString2File(fileContent, file, charSet);
+                writeString2File(fileContent, file);
             }
         }
     }
@@ -557,15 +557,19 @@ public class FileUtils {
     /**
      * 将字符串写入文件
      */
-    public static void writeString2File(String str, File file, String encoding) {
+    public static void writeString2File(String str, File file) {
         BufferedWriter writer = null;
+        File parentFile = file.getParentFile();
         try {
+            if (!parentFile.exists()){
+                parentFile.mkdirs();
+            }
             if(!file.exists()) {
                 file.createNewFile();
             }
 
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file), encoding));
+                    new FileOutputStream(file), "UTF-8"));
             writer.write(str);
 
         } catch (IOException e) {
@@ -580,9 +584,9 @@ public class FileUtils {
         }
     }
 
-    public static void writeString2File(String str, File file) {
-        writeString2File(str, file, getCharSet(file));
-    }
+//    public static void writeString2File(String str, File file) {
+//        writeString2File(str, file, getCharSet(file));
+//    }
 
     /**
      * 将字节数组写入文件

@@ -8,9 +8,11 @@ import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
 import com.jackie.createapidemo.BannerModel;
 import com.jackie.createapidemo.BrandModel;
+import com.jackie.createapidemo.BuildConfig;
 import com.jackie.createapidemo.CategoryModel;
 import com.jackie.createapidemo.HomeModel;
 import com.jackie.createapidemo.OrderModel;
+import com.jackie.createapidemo.ParamsUtil;
 import com.jackie.createapidemo.ProductModel;
 import com.jackie.createapidemo.VariantModel;
 import com.jackie.createapidemo.anno.model.faq.FAQModel;
@@ -29,6 +31,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -48,8 +51,29 @@ public class JavaTest {
 //            System.out.println("=====false=");
 //        }
         JavaTest javaTest = new JavaTest();
-        javaTest.testRewardPoint();
+        javaTest.testSessionRequest();
 
+    }
+
+    public void testSessionRequest() {
+
+        testRequestMap(ParamsUtil.INSTANCE.createSession(),sessionRequestJson);
+    }
+
+    private void testRequestMap(Map<String,Object> map,String json){
+        //Map<String, Object> map = ParamsUtil.INSTANCE.createSession();
+
+        JsonParser parser = new JsonParser();
+        JsonObject obj1 = (JsonObject) parser.parse(json);
+        Set<String> jsonKeySet = obj1.keySet();
+
+        Iterator<String> iterable = jsonKeySet.iterator();
+        while (iterable.hasNext()) {
+            String key = iterable.next();
+            if (!map.containsKey(key)) {
+                System.out.println("========== session 缺少字段 " + key);
+            }
+        }
     }
 
     public void testOne() throws Exception {
@@ -100,8 +124,8 @@ public class JavaTest {
     /**
      * List<DetailModel>,DetailModel的验证
      */
-    private void checkListTypeModel(String type,Object obj,String fieldName
-            ,JsonObject jsonObject,String sName) throws Exception{
+    private void checkListTypeModel(String type, Object obj, String fieldName
+            , JsonObject jsonObject, String sName) throws Exception {
         //model中的List<DetailModel>,DetailModel的验证
         if (type.contains("java.util.List")) {   //如果type是类类型，则前面包含"class "，后面跟类名
             Method m = obj.getClass().getMethod("get" + fieldName);
@@ -129,10 +153,10 @@ public class JavaTest {
                 String innerSeriableName = getSeriableValue(innerClassName, innerFieldName);
 
                 String innerFieldNameWrapper = innerFieldName.substring(0, 1).toUpperCase() + innerFieldName.substring(1);
-                checkListTypeModel(innerType,fObj,innerFieldNameWrapper,jsonArray.get(0).getAsJsonObject(),innerSeriableName);
+                checkListTypeModel(innerType, fObj, innerFieldNameWrapper, jsonArray.get(0).getAsJsonObject(), innerSeriableName);
 
                 //model中具体的自定义的Model
-                checkDetailModel(innerType,fObj,innerFieldNameWrapper,jsonArray.get(0).getAsJsonObject(),innerSeriableName);
+                checkDetailModel(innerType, fObj, innerFieldNameWrapper, jsonArray.get(0).getAsJsonObject(), innerSeriableName);
 
                 innerList.add(innerSeriableName);
             }
@@ -155,17 +179,17 @@ public class JavaTest {
             System.out.println("========" + type);
             outList.add(seriableName);
             //model中的List<DetailModel>,DetailModel的验证
-            checkListTypeModel(type,objSet,name,totalJsonObject,seriableName);
+            checkListTypeModel(type, objSet, name, totalJsonObject, seriableName);
             //model中具体的自定义的Model
-            checkDetailModel(type,objSet,name,totalJsonObject,seriableName);
+            checkDetailModel(type, objSet, name, totalJsonObject, seriableName);
 
         }
         diffAllField(keySet, outList, objSet.getClass().getSimpleName());
     }
 
-    private void checkDetailModel(String type,Object obj,String fieldName
-            ,JsonObject jbject,String sName) throws Exception{
-        if (fieldName.equals("Companion")){
+    private void checkDetailModel(String type, Object obj, String fieldName
+            , JsonObject jbject, String sName) throws Exception {
+        if (fieldName.equals("Companion")) {
             return;
         }
         //表示具体的自定义的Model
@@ -180,31 +204,30 @@ public class JavaTest {
         if (containsDetailModel) {
             Method m = obj.getClass().getMethod("get" + fieldName);
             Object innerObj = m.invoke(obj);
-            if (innerObj == null){
+            if (innerObj == null) {
                 return;
             }
             Field[] fields = innerObj.getClass().getDeclaredFields();
             //model类中的所有@SeriableName中括号的字段
             List<String> list = new ArrayList<>();
-            for (int i = 0; i < fields.length; i++){
+            for (int i = 0; i < fields.length; i++) {
                 String innerFieldName = fields[i].getName();    //获取属性的名字
                 //System.out.println("========="+innerFieldName+"     "+innerObj.getClass().getSimpleName());
-                boolean isAllCaps = testAllUpperCase(innerFieldName.replace("_","")) || "Companion".equals(innerFieldName);
-                if (isAllCaps){
+                boolean isAllCaps = testAllUpperCase(innerFieldName.replace("_", "")) || "Companion".equals(innerFieldName);
+                if (isAllCaps) {
                     continue;
                 }
-                String innerSeriableName = getSeriableValue(innerObj.getClass().getSimpleName(),innerFieldName);
+                String innerSeriableName = getSeriableValue(innerObj.getClass().getSimpleName(), innerFieldName);
                 list.add(innerSeriableName);
             }
             JsonObject jsonObject = jbject.getAsJsonObject(sName);
-            if (jsonObject == null){
+            if (jsonObject == null) {
                 return;
             }
             Set<String> innerSet = jsonObject.keySet();
             diffAllField(innerSet, list, innerObj.getClass().getSimpleName());
         }
     }
-
 
 
     //对比字段
@@ -306,10 +329,10 @@ public class JavaTest {
         return field;
     }
 
-    public static boolean testAllUpperCase(String str){
-        for(int i=0; i<str.length(); i++){
+    public static boolean testAllUpperCase(String str) {
+        for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if(c >= 97 && c <= 122) {
+            if (c >= 97 && c <= 122) {
                 return false;
             }
         }
@@ -407,4 +430,16 @@ public class JavaTest {
             "  \"total_of_point_histories\": null\n" +
             "}";
 
+    String sessionRequestJson = "   {\n" +
+            "      \"device_id\": null,\n" +
+            "      \"session_token\": null,\n" +
+            "      \"firebase_messaging_token\": null,\n" +
+            "      \"language\": null,\n" +
+            "      \"os\": null,\n" +
+            "      \"app_version\": null,\n" +
+            "      \"os_version\": null,\n" +
+            "      \"model_name\": null,\n" +
+            "      \"cpu\": null,\n" +
+            "      \"manufacturer\": null\n" +
+            "    }";
 }

@@ -1,6 +1,7 @@
 package com.jackie.createapidemo;
 
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,6 +13,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import retrofit2.Response;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * Description:
@@ -20,14 +28,146 @@ import java.util.Map;
  * @date 2020-01-19
  */
 public class JsonUtils {
+
+
     public static void main(String[] args) {
-        
+
         /// 读取json字符串
 //        String json = FileUtils.readToString(new File(
 //                "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/app/src/main/java/com/jackie/createapidemo/temp/Json/JsonString.txt"), "UTF-8");
 
-        String json = "{\"id\": \"503\", \"name\": \"班级优化\", \"info\": {\"uid\":\"2017\",\"stuName\":[\"张三\",\"李四\"]}}";
-        parseJson2Java(json);
+//        String json = "{\"id\": \"503\", \"name\": \"班级优化\", \"info\": {\"uid\":\"2017\",\"stuName\":[\"张三\",\"李四\"]}}";
+//        parseJson2Java(json);
+        System.out.println("=====");
+        createFile();
+    }
+
+    static void createFile() {
+        //print("create file")
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n");
+        sb.append("package com.jackie.createapidemo.api.json;\n\n");
+        sb.append("interface ApiRequest {\n\n");
+
+
+        String json = FileUtils.readToString(new File(
+                "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/Json/JsonString.txt"), "UTF-8");
+
+
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) parser.parse(json);
+
+        //services
+        JsonArray servicesArray = jsonObject.getAsJsonArray("services");
+
+        for (int h=0;h<servicesArray.size();h++) {
+
+            JsonObject interfacebject = servicesArray.get(h).getAsJsonObject();
+
+            String outName = interfacebject.get("name").getAsString();
+
+            String newOutName = outName.substring(0,1).toLowerCase()+outName.substring(1);
+            //System.out.println(newOutName);
+            //optations:[{},{}]
+            JsonArray optationsArray = interfacebject.getAsJsonArray("operations");
+            for (int j = 0; j < optationsArray.size(); j++) {
+
+                JsonObject jsInterface = optationsArray.get(j).getAsJsonObject();
+
+                String tempName = jsInterface.get("name").getAsString();
+
+                String name = newOutName.concat(tempName.substring(0,1).toUpperCase() + tempName.substring(1));
+
+                String method = jsInterface.get("method").getAsString();
+
+                String path = jsInterface.get("path").getAsString();
+
+                JsonArray pathArray = jsInterface.get("pathParams").getAsJsonArray();
+
+
+                String responseType = jsInterface.get("responseType").getAsString().replace("void", "Void");
+
+                String requestType = String.valueOf(jsInterface.get("requestType")).replace("\"","");
+
+                //@方法类型("url") @POST("product/{code}/review")
+                String requestMethod = String.format("\t@%s(\"", method);
+                sb.append(requestMethod);
+
+                //移除首个/,同时规范一下（）中的内容，比如"account/reorder-v2/{id}"
+                String[] pathArr = path.split("/");
+                StringBuilder pathSb = new StringBuilder();
+                if (pathArr.length > 0) {
+                    for (int i = 0; i < pathArr.length; i++) {
+                        if (pathArr[i].equals("")) {
+                            continue;
+                        }
+                        if (pathArr[i].contains(":")) {
+                            String str = pathArr[i].replace(":", "{");
+
+                            pathSb.append(str);
+                            pathSb.append("}");
+                            if (i != pathArr.length - 1) {
+                                pathSb.append("/");
+                            }
+                            continue;
+                        }
+                        pathSb.append(pathArr[i]);
+                        if (i != pathArr.length - 1) {
+                            pathSb.append("/");
+                        }
+                    }
+                }
+                System.out.println(pathSb.toString());
+                sb.append(pathSb.toString());
+                sb.append("\")\n\t");
+
+//        fun addReview(@Path("code") code: String?,
+//                      @Body body: HashMap<String, Any?>): Observable<Response<Void>>
+                //如果路径中含有参数，进行拼接 @Path("code") code: String?,
+                StringBuilder paramSb = new StringBuilder();
+                if (pathArray != null && pathArray.size() > 0) {
+                    for (int i = 0; i < pathArray.size(); i++) {
+                        JsonObject paramObject = pathArray.get(i).getAsJsonObject();
+                        String paramName = paramObject.get("name").getAsString();
+                        String paramType = paramObject.get("type").getAsString().replace("string", "String");
+                        String pathString = String.format("@Path(\"%1s\") %2s: %3s?", paramName, paramName, paramType);
+                        paramSb.append(pathString);
+                        if (i != pathArray.size() - 1) {
+                            paramSb.append(",");
+                        }
+                    }
+                }
+
+                //请求Body  hasMap或者具体的类   @Body body: HashMap<String, Any?>): Observable<Response<Void>>
+                StringBuilder bodySb = new StringBuilder();
+                if (!requestType.equals("null")) {
+                    bodySb.append("@Body body: ");
+                    bodySb.append(requestType);
+                }
+                if (pathArray != null && pathArray.size() != 0 && !requestType.equals("null")){
+                    paramSb.append(",");
+                }
+                //返回类型
+                String reponseStr = String.format("): Observable<Response<%s>>", responseType);
+                bodySb.append(reponseStr);
+
+                String str = String.format("fun %1s(%2s%3s ", name, paramSb.toString(), bodySb.toString()).replace("(  ","(");
+                sb.append(str);
+                sb.append("\n\n");
+
+            }
+
+        }
+
+        sb.append("\n}");
+
+        FileUtils.writeString2File(sb.toString(), new File(
+                "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/app/src/main/java/com.jackie/createapidemo/api"
+                        + File.separator + "json" + File.separator + "ApiRequest.kt"));
+
+
+        //writeString2File(javaBeanStr,new File("/Test.java"));
+
     }
 
     /**
