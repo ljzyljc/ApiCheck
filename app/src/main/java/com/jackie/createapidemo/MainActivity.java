@@ -4,6 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -12,5 +25,67 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                createJson();
+            }
+        }).start();
+
+    }
+
+    class TestBean{
+        int rand;
+        String key;
+        String date;
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public void setRand(int rand) {
+            this.rand = rand;
+        }
+    }
+
+    void createJson() {
+        System.out.println("==========jackie========");
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        TestBean testBean = new TestBean();
+        testBean.setDate("2020-2-28");
+        testBean.setRand(0);
+        testBean.setKey("d092d0b34915a4d3024630f13b4b7dc4");
+        Gson gson = new Gson();
+        String testJson = gson.toJson(testBean);
+
+        RequestBody body = RequestBody.create(JSON,testJson);
+
+        FormBody formBody = new FormBody.Builder()
+                .add("key","d092d0b34915a4d3024630f13b4b7dc4")
+                .build();
+
+        String getUrl = "http://api.tianapi.com/txapi/everyday/index?key=d092d0b34915a4d3024630f13b4b7dc4";
+        Request request = new Request.Builder()
+                .url("http://api.tianapi.com/txapi/everyday/index")
+                .post(formBody)
+                .build();
+        Call mCall = client.newCall(request);
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("======error======="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("=====response=1===="+response.body().string());
+            }
+        });
     }
 }

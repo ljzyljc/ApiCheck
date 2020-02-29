@@ -7,14 +7,25 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -40,7 +51,92 @@ public class JsonUtils {
 //        parseJson2Java(json);
         System.out.println("=====");
         createFile();
+
+        //createRequestResponse();
     }
+
+    /**
+     * @param url 下载连接
+     * @param saveDir 储存下载文件的SDCard目录
+     * @param params url携带参数
+     * @param extraHeaders 请求携带其他的要求的headers
+     */
+//    public void download(final String url, final String saveDir,HashMap<String,String> params, HashMap<String,String> extraHeaders) {
+//        //构造请求Url
+//        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+//        if (params != null) {
+//            for (String key : params.keySet()) {
+//                if (params.get(key)!=null){
+//                    urlBuilder.setQueryParameter(key, params.get(key));//非必须
+//                }
+//            }
+//        }
+//        //构造请求request
+//        Request request = new Request.Builder()
+//                .url(urlBuilder.build())
+//                .headers(extraHeaders == null ? new Headers.Builder().build() : Headers.of(extraHeaders))//headers非必须
+//                .get()
+//                .build();
+//        //异步执行请求
+//        OkHttpClient okHttpClient = new OkHttpClient();
+//        okHttpClient.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                // 下载失败
+//                listener.onDownloadFailed();
+//            }
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                //非主线程
+//                InputStream is = null;
+//                byte[] buf = new byte[2048];
+//                int len = 0;
+//                FileOutputStream fos = null;
+//                // 储存下载文件的目录
+//                String savePath = isExistDir(saveDir);
+//                try {
+//                    //获取响应的字节流
+//                    is = response.body().byteStream();
+//                    //文件的总大小
+//                    long total = response.body().contentLength();
+//                    File file = new File(savePath);
+//                    fos = new FileOutputStream(file);
+//                    long sum = 0;
+//                    //循环读取输入流
+//                    while ((len = is.read(buf)) != -1) {
+//                        fos.write(buf, 0, len);
+//                        sum += len;
+//                    }
+//                    fos.flush();
+//                    // 下载完成
+//                    if(listener != null){
+//                        listener.onDownloadSuccess();
+//                    }
+//
+//                } catch (Exception e) {
+//                    if(listener != null){
+//                        listener.onDownloadFailed();
+//                    }
+//
+//                } finally {
+//                    try {
+//                        if (is != null)
+//                            is.close();
+//                    } catch (IOException e) {
+//                    }
+//                    try {
+//                        if (fos != null)
+//                            fos.close();
+//                    } catch (IOException e) {
+//                    }
+//                }
+//            }
+//        });
+//    }
+
+
+
+    static Map<String, String> map;
 
     static void createFile() {
         //print("create file")
@@ -60,13 +156,13 @@ public class JsonUtils {
         //services
         JsonArray servicesArray = jsonObject.getAsJsonArray("services");
 
-        for (int h=0;h<servicesArray.size();h++) {
+        for (int h = 0; h < servicesArray.size(); h++) {
 
             JsonObject interfacebject = servicesArray.get(h).getAsJsonObject();
 
             String outName = interfacebject.get("name").getAsString();
 
-            String newOutName = outName.substring(0,1).toLowerCase()+outName.substring(1);
+            String newOutName = outName.substring(0, 1).toLowerCase() + outName.substring(1);
             //System.out.println(newOutName);
             //optations:[{},{}]
             JsonArray optationsArray = interfacebject.getAsJsonArray("operations");
@@ -76,7 +172,7 @@ public class JsonUtils {
 
                 String tempName = jsInterface.get("name").getAsString();
 
-                String name = newOutName.concat(tempName.substring(0,1).toUpperCase() + tempName.substring(1));
+                String name = newOutName.concat(tempName.substring(0, 1).toUpperCase() + tempName.substring(1));
 
                 String method = jsInterface.get("method").getAsString();
 
@@ -87,7 +183,7 @@ public class JsonUtils {
 
                 String responseType = jsInterface.get("responseType").getAsString().replace("void", "Void");
 
-                String requestType = String.valueOf(jsInterface.get("requestType")).replace("\"","");
+                String requestType = String.valueOf(jsInterface.get("requestType")).replace("\"", "");
 
                 //@方法类型("url") @POST("product/{code}/review")
                 String requestMethod = String.format("\t@%s(\"", method);
@@ -144,14 +240,14 @@ public class JsonUtils {
                     bodySb.append("@Body body: ");
                     bodySb.append(requestType);
                 }
-                if (pathArray != null && pathArray.size() != 0 && !requestType.equals("null")){
+                if (pathArray != null && pathArray.size() != 0 && !requestType.equals("null")) {
                     paramSb.append(",");
                 }
                 //返回类型
                 String reponseStr = String.format("): Observable<Response<%s>>", responseType);
                 bodySb.append(reponseStr);
 
-                String str = String.format("fun %1s(%2s%3s ", name, paramSb.toString(), bodySb.toString()).replace("(  ","(");
+                String str = String.format("fun %1s(%2s%3s ", name, paramSb.toString(), bodySb.toString()).replace("(  ", "(");
                 sb.append(str);
                 sb.append("\n\n");
 
@@ -162,13 +258,179 @@ public class JsonUtils {
         sb.append("\n}");
 
         FileUtils.writeString2File(sb.toString(), new File(
-                "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/app/src/main/java/com.jackie/createapidemo/api"
+                "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/app/src/main/java/com/jackie/createapidemo/api"
                         + File.separator + "json" + File.separator + "ApiRequest.kt"));
 
 
         //writeString2File(javaBeanStr,new File("/Test.java"));
 
     }
+
+    static void createRequestResponse() {
+
+
+        String json = FileUtils.readToString(new File(
+                "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/Json/JsonString.txt"), "UTF-8");
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = (JsonObject) parser.parse(json);
+        //services
+        JsonArray servicesArray = jsonObject.getAsJsonArray("types");
+
+        map = new HashMap<>();
+        //先获取所有的enum类名
+        for (int m = 0; m < servicesArray.size(); m++) {
+
+            JsonObject object = servicesArray.get(m).getAsJsonObject();
+
+            String className = object.get("name").getAsString().replace("$", "");
+
+            String type = object.get("type").getAsString();
+
+            if (type.equals("enum")) {
+                map.put(className, "enum");
+            }
+        }
+
+        for (int j = 0; j < servicesArray.size(); j++) {
+            JsonObject object = servicesArray.get(j).getAsJsonObject();
+
+            String className = object.get("name").getAsString().replace("$", "");
+
+            String type = object.get("type").getAsString();
+
+            if (type.equals("enum")) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("\n");
+                sb.append("package com.jackie.createapidemo.api.model.enum\n\n");
+                sb.append("enum class ");
+                sb.append(className);
+                sb.append("(val value:String){\n\t");
+
+                String classJson = object
+                        .get("definition")
+                        .getAsString()
+                        .replace("{", "")
+                        .replace("}", "");
+
+                String[] fieldArray = classJson.split(",");
+
+                StringBuilder fieldSb = new StringBuilder();
+                fieldSb.append(sb.toString());
+                for (int i = 0; i < fieldArray.length; i++) {
+                    if (fieldArray[i].equals(" ") || fieldArray[i].equals("")) {
+                        continue;
+                    }
+                    String[] detailArray = fieldArray[i].split("=");
+                    fieldSb.append(detailArray[0].replace(" ", ""));
+                    fieldSb.append("(\"");
+                    fieldSb.append(detailArray[1].replace("\"", "").replace(" ", ""));
+                    fieldSb.append("\")");
+                    if (i != fieldArray.length - 2) {
+                        fieldSb.append(",");
+                    }
+                }
+                fieldSb.append("\n}");
+
+                FileUtils.writeString2File(fieldSb.toString(), new File(
+                        "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/app/src/main/java/com/jackie/createapidemo/api/model"
+                                + File.separator + "enum" + File.separator + className + ".kt"));
+
+                continue;
+            }
+
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("package com.jackie.createapidemo.api.model\n\n");
+
+            String classJson = object
+                    .get("definition")
+                    .getAsString()
+                    .replace("{", "")
+                    .replace("}", "");
+
+            String[] fieldArray = classJson.split(";");
+
+            StringBuilder fieldSb = new StringBuilder();
+            //fieldSb.append(sb.toString());
+            for (int i = 0; i < fieldArray.length; i++) {
+                if (fieldArray[i].equals(" ") || fieldArray[i].equals("")) {
+                    continue;
+                }
+                String[] detailArray = fieldArray[i].replace(" | null", "").replace("$", "").split(":");
+                fieldSb.append("\n\tval");
+                fieldSb.append(detailArray[0]);
+                fieldSb.append(":");
+
+                //String fieldType = detailArray[1].replace("string", "String");
+
+                String fieldType = detailArray[1]
+                        .replace("string", "String")
+                        .replace("boolean", "Boolean")
+                        .replace("number", "Double");
+
+                String importValue = getImportValue(fieldType, sb.toString());
+                if (!importValue.equals("")) {
+                    sb.append(importValue);
+                    sb.append("\n");
+                }
+
+                if (fieldType.contains("[]")) {
+                    fieldType = String.format("List<%s>", fieldType.replace("[]", "").replace(" ", ""));
+                }
+                fieldSb.append(fieldType);
+                fieldSb.append("?");
+                if (i != fieldArray.length - 2) {
+                    fieldSb.append(",");
+                }
+            }
+
+            sb.append("\ndata class ");
+            sb.append(className);
+            sb.append("(\n");
+
+            sb.append(fieldSb.toString());
+            sb.append("\n)");
+
+            //fieldSb.append("\n)");
+
+//        data class LoginModel(
+//                @SerializedName("first_name")
+//                        val firstName: String?,
+//                @SerializedName("last_name")
+//                        val lastName: String?,
+//                @SerializedName("email")
+//                        val email: String?,
+//                @SerializedName("intercom_user_hash")
+//                        val intercomUserHash: String?,
+//                @SerializedName("avatar_image_url")
+//                        val iconUrl: String?,
+//                @SerializedName("birth_date")
+//                        val birthday: String?,
+//                @SerializedName("phone")
+//                        val phone: String?,
+//                @SerializedName("enable_update_birth_date")
+//                        val enableUpdateBirthday: Boolean?)
+
+            FileUtils.writeString2File(sb.toString(), new File(
+                    "/Users/jackie/Desktop/WorkPlace/AndroidWorkPlace/CreateApiDemo/app/src/main/java/com/jackie/createapidemo/api"
+                            + File.separator + "model" + File.separator + className + ".kt"));
+
+        }
+    }
+
+    private static String getImportValue(String type, String alreadyImportValue) {
+        type = type.replace(" ", "").replace("[]", "");
+        String dateImportValue = "import java.util.*";
+        if (type.equals("Date") && !alreadyImportValue.contains(dateImportValue)) {
+            return dateImportValue;
+        }
+        String typeImportVlaue = "import com.jackie.createapidemo.api.model.enum." + type;
+        if (map.containsKey(type) && !alreadyImportValue.contains(typeImportVlaue)) {
+            return typeImportVlaue;
+        }
+        return "";
+    }
+
 
     /**
      * 将json字符串转换为对应的javabean
